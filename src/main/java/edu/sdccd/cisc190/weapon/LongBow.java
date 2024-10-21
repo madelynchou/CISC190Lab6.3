@@ -1,7 +1,7 @@
 package edu.sdccd.cisc190.weapon;
 
 public class LongBow extends Bow {
-    protected LongBow() {
-        super("Long Bow", 3);
+    public LongBow() {
+        super("Long Bow", 2);
     }
 }
