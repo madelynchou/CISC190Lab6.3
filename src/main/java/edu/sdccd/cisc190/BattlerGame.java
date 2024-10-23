@@ -23,13 +23,13 @@ public class BattlerGame {
         Character player;
         Character boss;
         String characterName;
-        int characterType;
+        byte characterType;
 
-        while(true) {
+        while (true) {
             Scanner input = new Scanner(System.in);
             System.out.print("Name your character (q to quit): ");
             characterName = input.nextLine();
-            if(characterName.equals("q")) {
+            if (characterName.equals("q")) {
                 System.out.println("Thanks for playing! Goodbye!");
                 break;
             }
@@ -37,7 +37,7 @@ public class BattlerGame {
             System.out.println("(1) Fighter");
             System.out.println("(2) Wizard");
             System.out.println("(3) Archer");
-            characterType = input.nextInt();
+            characterType = input.nextByte();
 
             //TODO handle invalid input exception and validate input before proceeding
             player = createCharacter(characterName, characterType);
@@ -53,23 +53,25 @@ public class BattlerGame {
 
     /**
      * Player character battles against a boss character to the death
+     *
      * @param player the player character attacks first
-     * @param boss the boss defends, then returns attack if still alive
+     * @param boss   the boss defends, then returns attack if still alive
      */
     public static void battle(Character player, Character boss) {
-        while(player.isAlive() && boss.isAlive()) {
+        while (player.isAlive() && boss.isAlive()) {
             player.attack(boss);
-            if(boss.isAlive()) boss.attack(player);
+            if (boss.isAlive()) boss.attack(player);
         }
     }
 
     /**
      * Creates and returns a character with base stats and weapon
+     *
      * @param characterName the name of the character to create
      * @param characterType what type of character to create, map of id to subclass of Character is contained within this method
      * @return the new character of type, base stats, and name passed in
      */
-    public static Character createCharacter(String characterName, int characterType) {
+    public static Character createCharacter(String characterName, byte characterType) {
         return switch (characterType) {
             case 1 -> new Fighter(characterName, 10, 3, 3, new Sword());
             case 2 -> new Wizard(characterName, 5, 1, 1, new AshStaff(), 10, 2, 3);
